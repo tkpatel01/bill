@@ -115,7 +115,7 @@
 
                         <div class="row">
                             <div class="form-group col-md-4">
-                                <label for="exampleInputEmail1">Email address</label>
+                                <label for="exampleInputEmail1">Email Address</label>
                                 <input type="email" name="email"
                                     class="form-control email @error('email') is-invalid @enderror" value=""
                                     id="exampleInputEmail1" placeholder="Enter email">
