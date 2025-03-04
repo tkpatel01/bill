@@ -27,15 +27,15 @@ Route::controller(loginController::class)->group(function () {
     Route::get('logout', 'logout')->name('logout');
 });
 
-Route::middleware(['IsValid', 'IsAdmin', 'IsReader'])->group(function () {
+Route::middleware(['IsValid', 'IsAdmin'])->group(function () {
     Route::controller(loginController::class)->group(function () {
         // redirect after successfully login
-        Route::get('dashboard', 'dashboardPage')->name('dashboard')->withoutMiddleware('IsReader');
+        Route::get('dashboard', 'dashboardPage')->name('dashboard')->middleware('IsReader');
 
         Route::get('user', 'showUsers')->name('user');
 
         Route::get('/user/{id}', 'singleUser')->name('view.user');
- 
+
         Route::view('newuser', 'user/adduser')->name('newuser');
         Route::post('/add', 'addUser')->name('add_user');
 
