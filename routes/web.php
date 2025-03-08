@@ -3,6 +3,7 @@
 use App\Http\Controllers\EmailController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\loginController;
+use App\Http\Controllers\OtpController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\InvoiceController;
@@ -13,6 +14,13 @@ use App\Http\Middleware\ValidUser;
 Route::get('/', function () {
     return view('/login');
 });
+
+Route::get('/otp', function () {
+    return view('otp');
+});
+Route::post('/otp', [OtpController::class, 'loginwithotp'])->name('login.with.otp');
+Route::view('/confirm-login-with-otp', 'otp')->name('confirm.login.with.otp');
+Route::post('/confirmloginwithotp', [OtpController::class, 'confirmloginwithotp'])->name('confirm.login.with.otp');
 
 // login, Register, User, Logout
 Route::controller(loginController::class)->group(function () {
@@ -27,11 +35,9 @@ Route::controller(loginController::class)->group(function () {
     Route::get('logout', 'logout')->name('logout');
 });
 
-Route::middleware(['IsValid', 'IsAdmin'])->group(function () {
+Route::middleware(['IsValid:admin'])->group(function () {
     Route::controller(loginController::class)->group(function () {
         // redirect after successfully login
-        Route::get('dashboard', 'dashboardPage')->name('dashboard')->middleware('IsReader');
-
         Route::get('user', 'showUsers')->name('user');
 
         Route::get('/user/{id}', 'singleUser')->name('view.user');
@@ -48,7 +54,9 @@ Route::middleware(['IsValid', 'IsAdmin'])->group(function () {
     });
 });
 
-Route::middleware(['IsValid', 'IsAdmin', 'IsReader'])->group(function () {
+Route::get('dashboard', [loginController::class, 'dashboardPage'])->name('dashboard');
+
+Route::middleware(['IsValid:admin,reader'])->group(function () {
     // Customer
     Route::controller(CustomerController::class)->group(function () {
 
@@ -102,6 +110,6 @@ Route::get('/invoice ', function () {
     return view('invoice');
 })->name('invoice');
 
-// Route::fallback(function () {
-//     return view('404');
-// });
+Route::fallback(function () {
+    return view('404');
+})->name('404');

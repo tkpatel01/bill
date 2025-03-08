@@ -17,7 +17,11 @@ class loginController extends Controller
 {
     public function index()
     {
-        return view('login');
+        if (Auth::check()) {
+            return view('login');
+        } else {
+            return redirect()->route('login');
+        }
     }
 
     public function register(Request $request)
@@ -29,7 +33,6 @@ class loginController extends Controller
             'email' => 'email|required|unique:users,email',
             'password' => 'required|confirmed',
         ]);
-        // dd($request->role);
         // $user = DB::table('users')->insert($data);
         $user = user::create($data);
 
@@ -62,6 +65,23 @@ class loginController extends Controller
         } else {
             return redirect()->back()->withErrors(['password' => 'Invalid password']);
         }
+    }
+
+    public function otpPage(string $id)
+    {
+        $user = $id;
+        if ((Auth::check()) && (auth()->otp != null) && (auth()->status == 'online')) {
+            return redirect()->route('index');
+        } else if ((Auth::check()) && (auth()->otp != null) && (auth()->status == 'offline')) {
+            return view('admin.auth.otp', compact('user'));
+        } else {
+            return redirect()->route('login');
+        }
+    }
+
+    private function randomeOtp()
+    {
+        return rand('1000', '9999');
     }
 
     public function dashboardPage()
