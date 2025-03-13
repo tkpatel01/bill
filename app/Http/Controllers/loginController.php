@@ -11,14 +11,16 @@ use GuzzleHttp\Promise\Create;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\OtpMail;
 
 
 class loginController extends Controller
 {
     public function index()
     {
-        if (Auth::check()) {
-            return view('login');
+        if (Auth::check() && (Auth::user()->otp != null) && (Auth::user()->status == 'active')) {
+            return view('dashboard');
         } else {
             return redirect()->route('login');
         }
@@ -60,8 +62,14 @@ class loginController extends Controller
             Auth::attempt(['email' => $admin->email, 'password' => $request->password]) ||
             Auth::attempt(['mobile' => $admin->mobile, 'password' => $request->password])
         ) {
-            Auth::loginUsingId($admin->id);
-            return redirect()->route('dashboard');
+            $otp = $this->randomeOtp();
+            $setOtp = users::where('id', $admin->id)->update(['otp' => $otp]);
+            $userEmail = Auth::user()->email;
+            Mail::to($userEmail)->send(new OtpMail($otp));
+            // Auth::loginUsingId($admin->id);
+            $user_id = $admin->id;
+            Auth::loginUsingId($user_id);
+            return redirect('/otp/' . $user_id);
         } else {
             return redirect()->back()->withErrors(['password' => 'Invalid password']);
         }
@@ -70,25 +78,51 @@ class loginController extends Controller
     public function otpPage(string $id)
     {
         $user = $id;
-        if ((Auth::check()) && (auth()->otp != null) && (auth()->status == 'online')) {
-            return redirect()->route('index');
-        } else if ((Auth::check()) && (auth()->otp != null) && (auth()->status == 'offline')) {
-            return view('admin.auth.otp', compact('user'));
-        } else {
-            return redirect()->route('login');
-        }
+        // if ((Auth::check()) && (Auth::user()->otp != null) && (Auth::user()->status == 'online')) {
+        //     return redirect()->route('dashboard');
+        // } else if ((Auth::check()) && (Auth::user()->otp != null) && (Auth::user()->status == 'offline')) {
+        return view('otp', compact('user'));
+        // } else {
+        //     return redirect()->route('login');
+        // }
     }
 
     private function randomeOtp()
     {
         return rand('1000', '9999');
     }
+    
+    public function otpMatch(Request $request)
+    {
+        $currendID = $request->id;
+        $currendOTP = $request->otp;
+
+        // dd(Auth::user()->id == $currendID);
+        if (($currendID == Auth::user()->id) && (Auth::user()->otp == $currendOTP) && (Auth::user()->status == 'inactive')) {
+            $setStatus = User::where('id', $currendID)->update(['status' => 'active']);
+            if ($setStatus) {
+                return redirect()->route('dashboard');
+            } else {
+                return redirect()->route('otp');
+            }
+        } else {
+            return redirect('otp/' . $currendID);
+        }
+    }
 
     public function dashboardPage()
     {
         $customer = Customer::sum('id');
         $total_expnese = Expense::sum('amount');
-        return view('dashboard', compact('customer', 'total_expnese'));
+
+        if ((Auth::check()) && (Auth::user()->otp != null) && (Auth::user()->status == 'active')) {
+            return view('dashboard', compact('customer', 'total_expnese'));
+        } else if ((Auth::check()) && (Auth::user()->otp != null) && (Auth::user()->status == 'inactive')) {
+            $user = Auth::user()->id;
+            return redirect('/otp/' . $user);
+        } else {
+            return redirect()->route('login');
+        }
     }
 
     // user
@@ -219,8 +253,12 @@ class loginController extends Controller
 
     public function logout()
     {
-        Auth::logout();
-        return view('login');
+        $id = Auth::user()->id;
+        $setStatus = User::where('id', $id)->update(['otp' => null, 'status' => 'inactive']);
+        if ($setStatus) {
+            Auth::logout();
+            return redirect()->route('login');
+        }
     }
 
 }

@@ -44,7 +44,7 @@ class OtpController extends Controller
         ]);
         $checkUser = Users::where('otp', $request->otp)->where('email', $request->email)->first();
         if (is_null($checkUser)) {
-            return redirect()->route('confirm.login.with.otp')->with('error', 'OTP or Email is incorrect.');
+            return redirect()->route('dashboard')->with('error', 'OTP or Email is incorrect.');
         } else {
             $user = users::where('email', $request->email)->first();
             if ($user) {

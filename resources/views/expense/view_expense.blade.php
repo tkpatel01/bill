@@ -1,6 +1,6 @@
 @extends('layout.masterlayout')
 
-@section('expense')
+@section('content')
 
     <section class="content-header">
         <div class="container-fluid">

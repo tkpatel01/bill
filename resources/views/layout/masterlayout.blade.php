@@ -1,8 +1,6 @@
-@php
-
-@endphp
-
 <!DOCTYPE html>
+<!--This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.-->
 <html lang="en">
 
 <head>
@@ -24,231 +22,139 @@
 
     <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.2.2/css/buttons.dataTables.css">
+
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" /> <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- Tempusdominus Bootstrap 4 -->
-    <link rel="stylesheet"
-        href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
-    <!-- iCheck -->
-    <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
-    <!-- JQVMap -->
-    <link rel="stylesheet" href="{{ asset('plugins/jqvmap/jqvmap.min.css') }}">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
-    <!-- overlayScrollbars -->
-    <link rel="stylesheet" href="{{ asset('plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
-
-    <!-- pace-progress -->
-    {{--
-    <link rel="stylesheet" href="{{ asset('plugins/pace-progress/themes/blue/pace-theme-flat-top.css') }}"> --}}
-    <!-- Toastr -->
-    <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}">
-    <!-- SweetAlert2 -->
-    {{--
-    <link rel="stylesheet" href="{{ asset('plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}"> --}}
-
-    <!-- DataTables -->
-    {{--
-    <link rel="stylesheet" href="{{asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
-    <link rel="stylesheet" href="{{asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
-    <link rel="stylesheet" href="{{asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}"> --}}
+    <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css')}}">
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition layout-top-nav">
     <div class="wrapper">
-        {{-- <!-- Preloader -->
-        <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__shake" src="{{ asset('dist/img/AdminLTELogo.png')}}" alt="AdminLTELogo" height="60"
-                width="60">
-        </div> --}}
 
         <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-            <!-- Left navbar links -->
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="index3.html" class="nav-link">Home</a>
-                </li>
-                <li class="nav-item d-none d-sm-inline-block">
-                    <a href="#" class="nav-link">Contact</a>
-                </li>
-            </ul>
+        <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
+            <div class="container-fluid m-2">
 
-            <!-- Right navbar links -->
-            <ul class="navbar-nav ml-auto">
-                <!-- Navbar Search -->
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-                        <i class="fas fa-search"></i>
-                    </a>
-                    <div class="navbar-search-block">
-                        <form class="form-inline">
-                            <div class="input-group input-group-sm">
-                                <input class="form-control form-control-navbar" type="search" placeholder="Search"
-                                    aria-label="Search">
-                                <div class="input-group-append">
-                                    <button class="btn btn-navbar" type="submit">
-                                        <i class="fas fa-search"></i>
-                                    </button>
-                                    <button class="btn btn-navbar" type="button" data-widget="navbar-search">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-                        <i class="fas fa-expand-arrows-alt"></i>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-        <!-- /.navbar -->
-
-        <!-- Main Sidebar Container -->
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
-            <!-- Brand Logo -->
-            <a href="{{ route('dashboard') }}" class="brand-link">
                 <img src="{{ asset('dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo"
-                    class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">AdminLTE 3</span>
-            </a>
+                    class="brand-image img-circle elevation-3">
 
-            <!-- Sidebar -->
-            <div class="sidebar">
-                <!-- Sidebar user panel (optional) -->
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    <div class="image">
-                        <img src="{{ asset('dist/img/user8-128x128.jpg')}}" class="img-circle elevation-2"
-                            alt="User Image">
-                    </div>
-                    <div class="info">
-                        <a href="#" class="d-block">test</a>
-                    </div>
-                </div>
+                <button class="navbar-toggler order-1" type="button" data-toggle="collapse"
+                    data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-                <!-- SidebarSearch Form -->
-                <div class="form-inline">
-                    <div class="input-group" data-widget="sidebar-search">
-                        <input class="form-control form-control-sidebar" type="search" placeholder="Search"
-                            aria-label="Search">
-                        <div class="input-group-append">
-                            <button class="btn btn-sidebar">
-                                <i class="fas fa-search fa-fw"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Sidebar Menu -->
-                <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                        data-accordion="false">
-                        <!-- Add icons to the links using the .nav-icon class
-                            with font-awesome or any other icon font library -->
-
+                <div class="collapse navbar-collapse order-3" id="navbarCollapse">
+                    <!-- Left navbar links -->
+                    <ul class="navbar-nav">
                         <li class="nav-item">
                             <a href="/dashboard" class="nav-link {{ (request()->is('dashboard')) ? 'active' : ''}}">
-                                <i class="nav-icon fa-solid fa-house"></i>
-                                <p>
-                                    Dashboard
-                                </p>
+                                <p><i class="nav-icon fa-solid fa-house"></i> Dashboard</p>
                             </a>
+                        </li>
+                        <!-- Master -->
+                        <li class="nav-item dropdown">
+                            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false" class="nav-link dropdown-toggle"><i
+                                    class="fa-solid fa-anchor"></i> Master</a>
+                            <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                                <li><a href="#" class="dropdown-item">Some action </a></li>
+                                <li><a href="#" class="dropdown-item">Some other action</a></li>
+
+                                <li class="dropdown-divider"></li>
+
+                                <!-- Level two dropdown-->
+                                <li class="dropdown-submenu dropdown-hover">
+                                    <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false"
+                                        class="dropdown-item dropdown-toggle"><i class="fa-solid fa-location-arrow"></i>
+                                        Location</a>
+                                    <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
+                                        <li>
+                                            <a tabindex="-1" href="#" class="dropdown-item"><i
+                                                    class="fa-solid fa-earth-americas nav-icon"></i> Country</a>
+                                        </li>
+                                        <li><a href="#" class="dropdown-item"><i class="fa-solid fa-building nav-icon"></i> State</a></li>
+                                        <li><a href="#" class="dropdown-item"><i class="fa-solid fa-city nav-icon"></i> City</a></li>
+                                    </ul>
+                                </li>
+                                <!-- End Level two -->
+                            </ul>
                         </li>
                         <li class="nav-item">
                             <a href="/user" class="nav-link {{ (request()->is('user')) ? 'active' : ''}}">
-                                <i class="fa-solid fa-user nav-icon"></i>
-                                <p>User</p>
+                                <p><i class="fa-solid fa-user nav-icon"></i> User</p>
                             </a>
                         </li>
-
                         <li class="nav-item">
                             <a href="/customer" class="nav-link {{ (request()->is('customer')) ? 'active' : ''}}">
-                                <i class="fa-solid fa-users nav-icon"></i>
-                                <p>Customer</p>
+                                <p><i class="fa-solid fa-users nav-icon"></i> Customer</p>
                             </a>
                         </li>
-
-                        {{-- Expense Dropdown --}}
-                        <li class="nav-item {{ (request()->is('expense')) ? 'menu-open' : ''}}">
-                            <a href="#" class="nav-link {{ (request()->is('expense')) ? 'active' : ''}}">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
-                                <p>
-                                    Expense
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
+                        <!-- Expense -->
+                        <li class="nav-item dropdown">
+                            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false" class="nav-link dropdown-toggle">Expense</a>
+                            <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
                                 <li class="nav-item">
                                     <a href="/expense" class="nav-link {{ (request()->is('expense')) ? 'active' : ''}}">
-                                        <i class="far fa-circle nav-icon"></i>
                                         <p>Report</p>
                                     </a>
                                 </li>
                             </ul>
                         </li>
-
-                        <li class="nav-item" style="position:fixed; bottom:0;">
-                            <a onClick="return confirm('Are you sure you want to delete?')" href="{{ route('logout') }}"
-                                class="nav-link">
-                                <i class="fa-solid fa-right-from-bracket nav-icon"></i>
-                                <p>
-                                    Logout
-                                </p>
-                            </a>
-                        </li>
                     </ul>
-                </nav>
-                <!-- /.sidebar-menu -->
-            </div>
-            <!-- /.sidebar -->
-        </aside>
-
-        <div class="content-wrapper">
-            <section class="content">
-                <div class="container-fluid">
-                    <div class="div p-1">
-                        @yield('dashboard') 
-                        @yield('invoice')
-
-                        @yield('user') 
-                        @yield('adduser')
-                        @yield('updateuser')
-
-                        @yield('customer')
-                        @yield('addcustomer')
-                        @yield('updatecustomer')
-
-                        @yield('expense')
-                        @yield('add_expense')
-                        @yield('update_expense')
-
-                        @yield('404') 
-                        {{-- @hasSection ('index')
-                        @else
-                        <h3>No Page Found...</h3>
-                        @endif
-
-                        @hasSection ('about')
-                        @else
-                        <h3>No Page Found...</h3>
-                        @endif --}}
-
-                    </div>
+                    <!-- Right navbar links -->
+                    <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown"
+                                aria-label="Open user menu">
+                                <img src="{{ asset('dist/img/avatar5.png')}}" alt="AdminLTE Logo"
+                                    class="brand-image img-circle elevation-3 m-auto">
+                                <div class="d-none d-xl-block ps-2 m-auto">
+                                    <div>{{Auth::user()->name}}</div>
+                                    <div class="mt-1 small text-secondary">{{Auth::user()->role}}</div>
+                                </div>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                <a onClick="return confirm('Are you sure you want to delete?')"
+                                    href="{{ route('logout') }}" class="nav-link">
+                                    <i class="fa-solid fa-right-from-bracket nav-icon"></i> Logout
+                                </a>
+                            </div>
+                        </div>
+                    </ul>
                 </div>
-            </section>
+            </div>
+        </nav>
+        <!-- /.navbar -->
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Main content -->
+            <div class="content">
+                <div class="container-fulid p-3">
+                    <div class="row">
+                        @yield('content') 
+                    </div>
+                    <!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </div>
+            <!-- /.content -->
         </div>
+        <!-- /.content-wrapper -->
+
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
 
         <!-- Footer -->
         <footer class="main-footer">
@@ -261,29 +167,12 @@
     </div>
     <!-- ./wrapper -->
 
+    <!-- REQUIRED SCRIPTS -->
+
     <!-- jQuery -->
     <script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>
-    <!-- jQuery UI 1.11.4 -->
-    <script src="{{asset('plugins/jquery-ui/jquery-ui.min.js')}}"></script>
-    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-    <script>
-        $.widget.bridge('uibutton', $.ui.button)
-    </script>
     <!-- Bootstrap 4 -->
     <script src="{{asset('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-    <!-- Sparkline -->
-    <script src="{{asset('plugins/sparklines/sparkline.js')}}"></script>
-    <!-- overlayScrollbars -->
-    <script src="{{ asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
-    <!-- AdminLTE App -->
-    <script src="{{ asset('dist/js/adminlte.js') }}"></script>
-    <!-- pace-progress -->
-    <script src="{{ asset('plugins/pace-progress/pace.min.js')}}"></script>
-    <!-- Toastr -->
-    <script src="{{ asset('plugins/toastr/toastr.min.js') }}"></script>
-    <!-- SweetAlert2 -->
-    {{--
-    <script src="{{ asset('plugins/sweetalert2/sweetalert2.min.js') }}"></script> --}}
 
     <!-- Custome DataTable -->
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
@@ -339,7 +228,6 @@
     @endif
 
     @stack('js')
-
 </body>
 
 </html>

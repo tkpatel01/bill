@@ -15,13 +15,6 @@ Route::get('/', function () {
     return view('/login');
 });
 
-Route::get('/otp', function () {
-    return view('otp');
-});
-Route::post('/otp', [OtpController::class, 'loginwithotp'])->name('login.with.otp');
-Route::view('/confirm-login-with-otp', 'otp')->name('confirm.login.with.otp');
-Route::post('/confirmloginwithotp', [OtpController::class, 'confirmloginwithotp'])->name('confirm.login.with.otp');
-
 // login, Register, User, Logout
 Route::controller(loginController::class)->group(function () {
     // new Register
@@ -31,9 +24,14 @@ Route::controller(loginController::class)->group(function () {
     // Login
     Route::view('login', 'login')->name('login');
     Route::post('loginMatch', 'login')->name('loginMatch');
+    Route::get('/otp/{id}', 'otpPage')->name('otp'); // Otp
+    Route::post('/otpMatch', 'otpMatch')->name('otpMatch'); // OTP Match
 
+    // Logout
     Route::get('logout', 'logout')->name('logout');
 });
+
+Route::get('dashboard', [loginController::class, 'dashboardPage'])->name('dashboard');
 
 Route::middleware(['IsValid:admin'])->group(function () {
     Route::controller(loginController::class)->group(function () {
@@ -53,8 +51,6 @@ Route::middleware(['IsValid:admin'])->group(function () {
         Route::post('/usereport', 'usereport')->name('userReport');
     });
 });
-
-Route::get('dashboard', [loginController::class, 'dashboardPage'])->name('dashboard');
 
 Route::middleware(['IsValid:admin,reader'])->group(function () {
     // Customer

@@ -27,7 +27,7 @@
       <div class="card-body">
         <p class="login-box-msg">Sign in to start your session</p>
 
-        <form action="{{ route('login.with.otp') }}" method="post">
+        <form action="{{ route('loginMatch') }}" method="post">
           @csrf
           <div class="input-group ">
             <input type="text" name="email" value="{{ old('email')}}"
@@ -39,8 +39,8 @@
             </div>
           </div>
           @error('email')
-        <span class="error text-danger">{{$message}}</span>
-      @enderror
+            <span class="error text-danger">{{$message}}</span>
+          @enderror
           <div class="input-group mt-3">
             <input type="password" name="password" value="{{ old('password')}}"
               class="form-control @error('password') is-invalid @enderror" placeholder="Password">
@@ -51,8 +51,8 @@
             </div>
           </div>
           @error('password')
-        <span class="error text-danger">{{$message}}</span>
-      @enderror
+            <span class="error text-danger">{{$message}}</span>
+          @enderror
           <div class="row mt-3">
             <div class="col-8">
               <div class="icheck-primary">
@@ -65,9 +65,7 @@
             <!-- /.col -->
             <div class="col-4">
               {{-- <button type="submit" class="btn btn-primary btn-block">Sign In</button> --}}
-              <button type="submit" class="btn btn-primary">
-                {{ __('Send OTP') }}
-              </button>
+              <button type="submit" class="btn btn-primary">Send Otp</button>
             </div>
             <!-- /.col -->
           </div>

@@ -1,16 +1,19 @@
 @extends('layout.masterlayout')
 
 @section('content')
+
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>User</h1>
+                    <h1>Country</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">User</li>
+                        <button type="button" id="add-customer" class="btn btn-default" data-toggle="modal"
+                            data-target="#modal-lg">
+                            Add Country
+                        </button>
                     </ol>
                 </div>
             </div>
@@ -18,51 +21,30 @@
     </section>
 
     <div class="mb-5" id="modal-body">
-    <div class="card card-primary">
-        <div class="card-header">
-            <h3 class="card-title">Users</h3>
-            <div class="card-tools">
-                <button type="button" id="add-user" class="btn btn-default" data-toggle="modal" data-target="#modal-lg">
-                    Add User
-                </button>
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Country</h3>
+                <div class="card-tools"></div>
             </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <table id="example" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Name</th>
+                            <th>Total Sum</th>
+                            <th>Gender</th>
+                            <th>Mobile</th>
+                            <th>Email</th>
+                            <th>City</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <!-- /.card-body -->
         </div>
-        <!-- /.card-header -->
-        <div class="card-body">
-            <table id="example" class="table table-bordered table-striped">
-                <thead>
-                    <tr>
-                        <th>No.</th>
-                        <th>Role</th>
-                        <th>Name</th>
-                        <th>Mobile</th>
-                        <th>Email</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{-- @foreach ($data as $id => $user)
-                    <tr>
-                        <td> {{$user->id}}</td>
-                        <td><button class="btn btn-primary"><a href="{{ route('view.user', $user->id) }}"><i
-                                        class="fa-solid fa-eye text-white"></i></a></button>
-
-                            <button class="btn btn-warning"><a href="{{ route('update.userpage', $user->id) }}"><i
-                                        class="fa-solid fa-pen-to-square text-white"></i></a></button>
-
-                            <button class="btn btn-danger"><a href="{{ route('delete.user', $user->id) }}"><i
-                                        class="fa-solid fa-trash text-white"></i></a></button>
-                        </td>
-                        <td> {{$user->name}}</td>
-                        <td>{{$user->mobile}}</td>
-                        <td>{{$user->email}}</td>
-                    </tr>
-                    @endforeach --}}
-                </tbody>
-            </table>
-        </div>
-        <!-- /.card-body -->
-    </div>
     </div>
 
     <!-- modal -->
@@ -72,7 +54,7 @@
                 <form id="quickForm" action="" method="POST">
                     @csrf
                     <div class="modal-header">
-                        <h4 class="modal-title"><span class="title">Add</span> User</h4>
+                        <h4 class="modal-title"><span class="title">Add</span> Country</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -97,23 +79,8 @@
                                     <span class="error text-danger">{{$message}}</span>
                                 @enderror
                             </div>
-                            <div class="col-md-3">
-                                <label for="text">Role</label>
-                                <select name="role" id="role" class="role form-select @error('role') is-invalid @enderror"
-                                    value="">
-                                    <option value="">Select Role</option>
-                                    <option value="reader">Reader</option>
-                                    <option value="admin">Admin</option>
-                                </select>
-                                @error('role')
-                                    <span class="error text-danger">{{$message}}</span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row">
                             <div class="form-group col-md-4">
-                                <label for="exampleInputEmail1">Email Address</label>
+                                <label for="exampleInputEmail1">Email address</label>
                                 <input type="email" name="email"
                                     class="form-control email @error('email') is-invalid @enderror" value=""
                                     id="exampleInputEmail1" placeholder="Enter email">
@@ -121,14 +88,24 @@
                                     <span class="error text-danger">{{$message}}</span>
                                 @enderror
                             </div>
-                            <div class="form-group col-md-4">
-                                <label for="password" class="password">Password</label>
-                                <input type="password" name="password"
-                                    class="form-control password @error('password') is-invalid @enderror" value=""
-                                    id="password" placeholder="Enter Paasword">
-                                @error('password')
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-3">
+                                <label for="city">City</label>
+                                <input type="text" name="city" class="form-control city @error('city') is-invalid @enderror"
+                                    id="city" value="" placeholder="Enter Your City">
+                                @error('city')
                                     <span class="error text-danger">{{$message}}</span>
                                 @enderror
+                            </div>
+                            <div class="col-md-3">
+                                <label for="text">Gender</label>
+                                <select name="gender" id="gender" class="gender form-control">
+                                    <option value="">Select Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -145,6 +122,7 @@
 
     @push('js')
 
+        {{-- ajax fetch data --}}
         <script>
             $.ajaxSetup({
                 headers: {
@@ -159,13 +137,15 @@
                     'serverSide': true,
                     'serverMethod': 'POST',
                     'dataType': 'json',
-                    'ajax': '{!!route('userReport')!!}',
+                    'ajax': '{!!route('customerReport')!!}',
                     columns: [
                         { data: "id" },
-                        { data: "role" },
                         { data: "name" },
+                        { data: "total" },
+                        { data: "gender" },
                         { data: "mobile" },
                         { data: "email" },
+                        { data: "city" },
                         { data: "action" }
                     ],
                     layout: {
@@ -179,23 +159,22 @@
 
         {{-- add-update model --}}
         <script>
-            $(document).on('click', '.update_user', function (e) {
+            $(document).on('click', '.update_customer', function (e) {
                 // update
-                const { id, role, name, mobile, email } = $(this).data();
+                const { id, name, gender, mobile, email, city } = $(this).data();
 
                 $('.title').text('Edit');
                 $(".id").val(id);
-                $('.role').val(role);
                 $(".name").val(name);
+                $('.gender').val(gender);
                 $('.mobile').val(mobile);
                 $('.email').val(email);
-                $('.password').hide();
+                $('.city').val(city);
             });
-
             $('#quickForm').on('submit', function (e) {
                 e.preventDefault();
                 $.ajax({
-                    url: '{{route('update_user')}}',
+                    url: '{{route('update_customer')}}',
                     data: $('#quickForm').serialize(),
                     type: 'POST',
                     success: function (res) {
@@ -208,22 +187,15 @@
             });
 
             // add
-            $('#add-user').click(function () {
+            $('#add-customer').click(function () {
                 $('#quickForm').attr('action', '{{route('addCustomer')}}');
                 $('.title').text('Add');
                 $('#modal-lg form').trigger('reset');
-                $('input').val('');
-                $(".id").show();
-                $('.role').show();
-                $(".name").show();
-                $('.mobile').show();
-                $('.email').show();
-                $('.password').show();
 
                 $('#quickForm').on('submit', function (c) {
                     c.preventDefault();
                     $.ajax({
-                        url: '{{route('add_user')}}',
+                        url: '{{url('addCustomer')}}',
                         data: $('#quickForm').serialize(),
                         type: 'POST',
                         success: function (result) {
@@ -235,10 +207,10 @@
                 });
             });
         </script>
-    @endpush
 
+    @endpush
 @endsection
 
 @section('title')
-    User
+    Customer
 @endsection

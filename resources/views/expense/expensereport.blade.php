@@ -1,25 +1,24 @@
 @extends('layout.masterlayout')
 
 
-@section('expense')
+@section('content')
 
-    <section class="content">
+    <section class="content-header">
         <div class="container-fluid">
-            <div class="col-12">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1>Expense</h1>
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Expense</li>
-                        </ol>
-                    </div>
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Expense</h1>
                 </div>
-            </div><!-- /.container-fluid -->
-        </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Expense</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
     </section>
+
     <div class="mb-5" id="modal-body">
         <div class="card card-primary">
             <div class="card-header"></div>
@@ -37,39 +36,40 @@
             </div>
         </div>
     </div>
-
-    <div class="card card-primary">
-        <div class="card-header">
-            <h3 class="card-title">Expense Report</h3>
-            <div class="card-tools">
-                {{-- <a href="/newexpense">
-                    <button class="btn btn-light">+ Add Expense</button>
-                </a> --}}
-                <button type="button" id="add-expense" class="btn btn-default" data-toggle="modal" data-target="#modal">
-                    Add Expense
-                </button>
+    <div class="mb-5" id="modal-body">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Expense Report</h3>
+                <div class="card-tools">
+                    {{-- <a href="/newexpense">
+                        <button class="btn btn-light">+ Add Expense</button>
+                    </a> --}}
+                    <button type="button" id="add-expense" class="btn btn-default" data-toggle="modal" data-target="#modal">
+                        Add Expense
+                    </button>
+                </div>
             </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <table id="example" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Name</th>
+                            <th>Item</th>
+                            <th>Date</th>
+                            <th>Amount</th>
+                            <th>Payment</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
         </div>
-        <!-- /.card-header -->
-        <div class="card-body">
-            <table id="example" class="table table-bordered table-striped">
-                <thead>
-                    <tr>
-                        <th>No.</th>
-                        <th>Name</th>
-                        <th>Item</th>
-                        <th>Date</th>
-                        <th>Amount</th>
-                        <th>Payment</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-        </div>
-        <!-- /.card-body -->
     </div>
 
     <div class="modal fade" id="modal">
@@ -88,7 +88,8 @@
 
                         <div class="customer">
                             <label for="customer_id">Customer</label>
-                            <select name="customer_id" id="customer_id" class="form-control customer_id select2 js-data-example-ajax">
+                            <select name="customer_id" id="customer_id"
+                                class="form-control customer_id select2 js-data-example-ajax">
                                 <option value="">Select Customer</option>
                             </select>
                         </div>
@@ -141,7 +142,6 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
-cd 
 
     @push('js')
 
@@ -206,7 +206,7 @@ cd
         {{-- add-update model --}}
         <script>
             $(document).on('click', '.update_expense', function (e) {
-                // update
+                // update Expense
                 const { id, customer_id, item, date, amount, payment } = $(this).data();
                 $('.title').text('Edit');
                 $(".id").val(id);
@@ -232,8 +232,8 @@ cd
                     }
                 });
             });
-            
-            // add
+
+            // add Expense
             $('#add-expense').click(function () {
                 $('#quickForm').attr('action', '{{route('addExpense')}}');
                 $('.title').text('Add');

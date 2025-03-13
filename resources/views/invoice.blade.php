@@ -1,6 +1,6 @@
 @extends('layout.masterlayout')
 
-@section('invoice')
+@section('content')
 
     <!-- Content Header (Page header) -->
     <section class="content-header">

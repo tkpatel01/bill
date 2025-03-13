@@ -25,9 +25,11 @@
             </div>
             <div class="card-body">
                 <p class="login-box-msg">Login With Otp. Please Enter Otp..</p>
-                <form action="{{ route('confirm.login.with.otp')}}" method="post">
+                <form action="{{ route('otpMatch')}}" method="post">
+                    @csrf
+                    <input type="hidden" name="id" value="{{$user}}">
                     <div class="input-group mb-3">
-                        <input type="number" class="form-control" placeholder="Otp">
+                        <input type="number" class="form-control" value="" name="otp" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==4) return false;" placeholder="Otp">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>

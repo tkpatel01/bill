@@ -1,6 +1,6 @@
 @extends('layout.masterlayout')
 
-@section('customer')
+@section('content')
 
     <section class="content-header">
         <div class="container-fluid">
@@ -17,56 +17,60 @@
             </div>
         </div><!-- /.container-fluid -->
     </section>
-
-    <div class="card card-primary">
-        <div class="card-header">
-            <h3 class="card-title">Customers</h3>
-            <div class="card-tools">
-                <button type="button" id="add-customer" class="btn btn-default" data-toggle="modal" data-target="#modal-lg">
-                    Add Customer
-                </button>
+    
+    <div class="mb-5" id="modal-body">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Customers</h3>
+                <div class="card-tools">
+                    <button type="button" id="add-customer" class="btn btn-default" data-toggle="modal"
+                        data-target="#modal-lg">
+                        Add Customer
+                    </button>
+                </div>
             </div>
-        </div>
-        <!-- /.card-header -->
-        <div class="card-body">
-            <table id="example" class="table table-bordered table-striped">
-                <thead>
-                    <tr>
-                        <th>No.</th>
-                        <th>Name</th>
-                        <th>Total Sum</th>
-                        <th>Gender</th>
-                        <th>Mobile</th>
-                        <th>Email</th>
-                        <th>City</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{-- @foreach ($data as $id => $customer)
-                    <tr>
-                        <td> {{$customer->id}}</td>
-                        <td><button class="btn btn-primary"><a href="{{ route('view.customer', $customer->id) }}"><i
-                                        class="fa-solid fa-eye text-white"></i></a></button>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <table id="example" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Name</th>
+                            <th>Total Sum</th>
+                            <th>Gender</th>
+                            <th>Mobile</th>
+                            <th>Email</th>
+                            <th>City</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{-- @foreach ($data as $id => $customer)
+                        <tr>
+                            <td> {{$customer->id}}</td>
+                            <td><button class="btn btn-primary"><a href="{{ route('view.customer', $customer->id) }}"><i
+                                            class="fa-solid fa-eye text-white"></i></a></button>
 
-                            <button class="btn btn-warning"><a href="{{ route('update.customerpage', $customer->id) }}"><i
-                                        class="fa-solid fa-pen-to-square text-white"></i></a></button>
+                                <button class="btn btn-warning"><a
+                                        href="{{ route('update.customerpage', $customer->id) }}"><i
+                                            class="fa-solid fa-pen-to-square text-white"></i></a></button>
 
-                            <button class="btn btn-danger"><a href="{{ route('delete.customer', $customer->id) }}"><i
-                                        class="fa-solid fa-trash text-white"></i></a></button>
-                        </td>
-                        <td> {{$customer->name}}</td>
-                        <td>{{ $customer->Expense->sum('amount') }}</td>
-                        <td> {{$customer->gender}}</td>
-                        <td>{{$customer->mobile}}</td>
-                        <td>{{$customer->email}}</td>
-                        <td> {{$customer->city}}</td>
-                    </tr>
-                    @endforeach --}}
-                </tbody>
-            </table>
+                                <button class="btn btn-danger"><a href="{{ route('delete.customer', $customer->id) }}"><i
+                                            class="fa-solid fa-trash text-white"></i></a></button>
+                            </td>
+                            <td> {{$customer->name}}</td>
+                            <td>{{ $customer->Expense->sum('amount') }}</td>
+                            <td> {{$customer->gender}}</td>
+                            <td>{{$customer->mobile}}</td>
+                            <td>{{$customer->email}}</td>
+                            <td> {{$customer->city}}</td>
+                        </tr>
+                        @endforeach --}}
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
         </div>
-        <!-- /.card-body -->
     </div>
 
     <!-- modal -->
