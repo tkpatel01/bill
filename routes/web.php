@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\EmailController;
+use App\Http\Controllers\master\CountryController;
+use App\Http\Controllers\master\StateController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\OtpController;
@@ -97,6 +99,25 @@ Route::middleware(['IsValid:admin,reader'])->group(function () {
 
         Route::get('invoice/{id}', 'invoice')->name('invoice');
 
+    });
+
+     Route::controller(CountryController::class)->group(function () {
+
+        Route::get('country','ShowCountry')->name('country');
+        Route::post('/addCountry', 'addCountry')->name('addCountry');
+        Route::post('/updateCountry', 'updateCountry')->name('update_country');
+        Route::get('/deletecountry/{id}', 'deleteCountry')->name('delete.country');
+        Route::post('/countryreport', 'Countryreport')->name('countryReport');
+    });
+
+    Route::controller(StateController::class)->group(function () {
+
+        Route::get('state','ShowState')->name('state');
+        Route::post('/addState', 'addState')->name('addState');
+        Route::post('/updateState', 'updateState')->name('update_state');
+        Route::get('/deleteState/{id}', 'deleteState')->name('delete.state');
+        Route::post('/statereport', 'Statereport')->name('stateReport');
+        Route::get('selectcountry', 'selectcountry')->name('selectcountry');
     });
 });
 

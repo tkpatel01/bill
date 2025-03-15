@@ -134,7 +134,7 @@
                     </div>
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary submit">Save</button>
+                        <button type="submit" class="btn btn-primary ms-auto submit">Save <i class="fa-solid fa-spinner fa-spin ms-1 save-loader" style="display:none"></i></button>
                     </div>
                 </form>
             </div>

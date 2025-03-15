@@ -77,10 +77,10 @@ scratch. This page gets rid of all links and provides the needed markup only.-->
                                         Location</a>
                                     <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
                                         <li>
-                                            <a tabindex="-1" href="#" class="dropdown-item"><i
+                                            <a tabindex="-1" href="{{ route('country')}}" class="dropdown-item"><i
                                                     class="fa-solid fa-earth-americas nav-icon"></i> Country</a>
                                         </li>
-                                        <li><a href="#" class="dropdown-item"><i class="fa-solid fa-building nav-icon"></i> State</a></li>
+                                        <li><a href="{{route('state')}}" class="dropdown-item"><i class="fa-solid fa-building nav-icon"></i> State</a></li>
                                         <li><a href="#" class="dropdown-item"><i class="fa-solid fa-city nav-icon"></i> City</a></li>
                                     </ul>
                                 </li>

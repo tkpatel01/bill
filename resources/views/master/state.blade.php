@@ -6,14 +6,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Country</h1>
+                    <h1>State</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <button type="button" id="add-customer" class="btn btn-default" data-toggle="modal"
-                            data-target="#modal-lg">
-                            Add Country
-                        </button>
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">State</li>
                     </ol>
                 </div>
             </div>
@@ -23,8 +21,13 @@
     <div class="mb-5" id="modal-body">
         <div class="card card-primary">
             <div class="card-header">
-                <h3 class="card-title">Country</h3>
-                <div class="card-tools"></div>
+                <h3 class="card-title">State</h3>
+                <div class="card-tools">
+                    <button type="button" id="add_state" class="btn btn-primary" data-toggle="modal"
+                        data-target="#modal-lg">
+                        Add State
+                    </button>
+                </div>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -32,12 +35,8 @@
                     <thead>
                         <tr>
                             <th>No.</th>
+                            <th>Country</th>
                             <th>Name</th>
-                            <th>Total Sum</th>
-                            <th>Gender</th>
-                            <th>Mobile</th>
-                            <th>Email</th>
-                            <th>City</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -54,7 +53,7 @@
                 <form id="quickForm" action="" method="POST">
                     @csrf
                     <div class="modal-header">
-                        <h4 class="modal-title"><span class="title">Add</span> Country</h4>
+                        <h4 class="modal-title"><span class="title">Add</span> State</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -62,6 +61,13 @@
                     <div class="modal-body">
                         <div class="row">
                             <input type="hidden" name="id" class="id">
+                            <div class="form-group col-md-4 country_id">
+                                <label for="country_id">Country</label>
+                                <select name="customer_id" id="customer_id"
+                                    class="form-control country_id select2 js-data-example-ajax">
+                                    <option value="">Select Country</option>
+                                </select>
+                            </div>
                             <div class="form-group col-md-4">
                                 <label for="name">Name</label>
                                 <input type="text" name="name" class="form-control name @error('name') is-invalid @enderror"
@@ -69,43 +75,6 @@
                                 @error('name')
                                     <span class="error text-danger">{{$message}}</span>
                                 @enderror
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="mobile">Mobile</label>
-                                <input type="mobile" name="mobile"
-                                    class="form-control mobile @error('mobile') is-invalid @enderror" id="mobile" value=""
-                                    maxlength="10" placeholder="Enter Mobile No.">
-                                @error('mobile')
-                                    <span class="error text-danger">{{$message}}</span>
-                                @enderror
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="exampleInputEmail1">Email address</label>
-                                <input type="email" name="email"
-                                    class="form-control email @error('email') is-invalid @enderror" value=""
-                                    id="exampleInputEmail1" placeholder="Enter email">
-                                @error('email')
-                                    <span class="error text-danger">{{$message}}</span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="form-group col-md-3">
-                                <label for="city">City</label>
-                                <input type="text" name="city" class="form-control city @error('city') is-invalid @enderror"
-                                    id="city" value="" placeholder="Enter Your City">
-                                @error('city')
-                                    <span class="error text-danger">{{$message}}</span>
-                                @enderror
-                            </div>
-                            <div class="col-md-3">
-                                <label for="text">Gender</label>
-                                <select name="gender" id="gender" class="gender form-control">
-                                    <option value="">Select Gender</option>
-                                    <option value="male">Male</option>
-                                    <option value="female">Female</option>
-                                </select>
                             </div>
                         </div>
                     </div>
@@ -137,15 +106,11 @@
                     'serverSide': true,
                     'serverMethod': 'POST',
                     'dataType': 'json',
-                    'ajax': '{!!route('customerReport')!!}',
+                    'ajax': '{!!route('stateReport')!!}',
                     columns: [
                         { data: "id" },
+                        { data: "country_id" },
                         { data: "name" },
-                        { data: "total" },
-                        { data: "gender" },
-                        { data: "mobile" },
-                        { data: "email" },
-                        { data: "city" },
                         { data: "action" }
                     ],
                     layout: {
@@ -157,24 +122,33 @@
             });
         </script>
 
+        {{-- select2 ajax --}}
+        <script>
+            $(document).ready(function () {
+                $('#country_id').select2({
+                    ajax: {
+                        type: 'get',
+                        url: '{!!route('selectcountry')!!}'
+                    }
+                });
+            });
+        </script>
+
         {{-- add-update model --}}
         <script>
-            $(document).on('click', '.update_customer', function (e) {
+            $(document).on('click', '.update_state', function (e) {
                 // update
-                const { id, name, gender, mobile, email, city } = $(this).data();
+                const { id, country_id, name } = $(this).data();
 
                 $('.title').text('Edit');
                 $(".id").val(id);
+                $(".country_id").val(country_id);
                 $(".name").val(name);
-                $('.gender').val(gender);
-                $('.mobile').val(mobile);
-                $('.email').val(email);
-                $('.city').val(city);
             });
             $('#quickForm').on('submit', function (e) {
                 e.preventDefault();
                 $.ajax({
-                    url: '{{route('update_customer')}}',
+                    url: '{{route('update_state')}}',
                     data: $('#quickForm').serialize(),
                     type: 'POST',
                     success: function (res) {
@@ -187,15 +161,15 @@
             });
 
             // add
-            $('#add-customer').click(function () {
-                $('#quickForm').attr('action', '{{route('addCustomer')}}');
+            $('#add_state').click(function () {
+                $('#quickForm').attr('action', '{{route('addState')}}');
                 $('.title').text('Add');
                 $('#modal-lg form').trigger('reset');
 
                 $('#quickForm').on('submit', function (c) {
                     c.preventDefault();
                     $.ajax({
-                        url: '{{url('addCustomer')}}',
+                        url: '{{url('addState')}}',
                         data: $('#quickForm').serialize(),
                         type: 'POST',
                         success: function (result) {
@@ -208,9 +182,10 @@
             });
         </script>
 
+
     @endpush
 @endsection
 
 @section('title')
-    Customer
+    State
 @endsection
